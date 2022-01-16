@@ -17,10 +17,11 @@
  */
 
 
-int inpt;
+//int inpt;
+char inpt;
 int left;
-int ledpin = 13;   //Declaring the LED pin
-int ledpin2 = 12;   //Declaring the LED pin
+int ledpin = 12;   //Declaring the LED pin
+int ledpin2 = 13;   //Declaring the LED pin
 
 
 
@@ -35,9 +36,17 @@ void setup() {
 void loop() {
  if ( Serial.available())     //Checks the availability of Serial port 
  {
-  inpt = Serial.parseInt();
-  Serial.print(inpt);
+  inpt = Serial.read();
+  //inpt = Serial.parseInt();
+  //Serial.print(inpt);
+    
  }
+  if (inpt == '1')          //Check if the received character is 1
+  digitalWrite(ledpin, HIGH);   //Make the GPIO High 
+  else if (inpt == '0')     ////Check if the received character is 0
+  digitalWrite(ledpin, LOW);    //Make the GPIO Low
+ 
+ /*
  if (inpt < 10)
   if (inpt == 2)          //Check if the received character is 1
   digitalWrite(ledpin, HIGH);   //Make the GPIO High 
@@ -50,6 +59,6 @@ if (inpt >= 10)
   digitalWrite(ledpin2, HIGH);   //Make the GPIO High 
   else if (left == 1)     ////Check if the received character is 0
   digitalWrite(ledpin2, LOW);    //Make the GPIO 
-
+*/
   delay(100);
 }
