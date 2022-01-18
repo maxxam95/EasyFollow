@@ -25,7 +25,7 @@ int left_speed_inpt;
 int right_dir;
 int right_speed_inpt;
 int min_speed = 40;
-int max_speed = 200;
+int max_speed = 250;
 int left_speed;
 int right_speed;
 
@@ -85,8 +85,8 @@ void loop() {
 */
   //Set Speeds:
 
-  left_speed = min_speed + left_speed_inpt / 10. * (max_speed-min_speed);
-  right_speed = min_speed + right_speed_inpt / 10. * (max_speed-min_speed);
+  left_speed = min_speed + left_speed_inpt / 9. * (max_speed-min_speed);
+  right_speed = min_speed + right_speed_inpt / 9. * (max_speed-min_speed);
   
   motor_left->setSpeed(left_speed);
   motor_right->setSpeed(right_speed);
@@ -146,5 +146,5 @@ if (inpt >= 10)
   else if (left == 1)     ////Check if the received character is 0
   digitalWrite(ledpin2, LOW);    //Make the GPIO 
 */
-  delay(1000);
+  delay(3000);
 }
