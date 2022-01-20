@@ -97,22 +97,22 @@ void loop() {
 
   //Run Motors
   //Left Motor
-  if (left_dir == 1){
+  if (left_dir == 2){
     motor_left->run(FORWARD);
-  } else if (left_dir == 2){
+  } else if (left_dir == 3){
     motor_left->run(BACKWARD);
-  } else if (left_dir == 0){
+  } else if (left_dir == 1){
     motor_left->run(RELEASE);
   } else{
     Serial.print("Fehlerhafte Eingabe für left dir: ");
     Serial.println(left_dir);
   }
   //Right Motor
-  if (right_dir == 1){
+  if (right_dir == 2){
     motor_right->run(FORWARD);
-  } else if (right_dir == 2){
+  } else if (right_dir == 3){
     motor_right->run(BACKWARD);
-  } else if (right_dir == 0){
+  } else if (right_dir == 1){
     motor_right->run(RELEASE);
   } else{
     Serial.print("Fehlerhafte Eingabe für right dir: ");
