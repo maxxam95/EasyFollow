@@ -28,11 +28,13 @@ int min_speed = 40;
 int max_speed = 250;
 int left_speed;
 int right_speed;
-
+String  y;
 
 
 void setup() {
-  Serial.begin(9600);           //Initializing the Serial Port to Baud rate 9600
+  Serial.begin(115200);           //Initializing the Serial Port to Baud rate 9600
+  Serial.setTimeout(1);
+  pinMode(LED_BUILTIN, OUTPUT);
   //Serial.println("0");
   //pinMode(ledpin, OUTPUT);      //Defining the Led pin as output 
   //pinMode(ledpin2, OUTPUT);      //Defining the Led pin as output 
@@ -43,7 +45,7 @@ void setup() {
     Serial.println("Could not find Motor Shield. Check wiring.");
     while (1);
   }
-  Serial.println("Motor Shield found.");
+  //Serial.println("Motor Shield found.");
 
   // Set the speed to start, from 0 (off) to 255 (max speed)
   motor_left->setSpeed(150);
@@ -57,17 +59,20 @@ void setup() {
 }
 
 void loop() {
+  while (!Serial.available());
+  inpt = Serial.readString().toInt();
+  y = String(inpt);
+  Serial.print(y);
   
+  //while (!Serial.available());
+  //inpt = Serial.parseInt();
+  //inpt = Serial.readString().toInt();
+  //inpt = 1010;
+  //Serial.print(inpt);
   //Serial.println("1");
- 
- if ( Serial.available())     //Checks the availability of Serial port 
- {
+
+
   
-  //inpt = Serial.read();
-  inpt = Serial.parseInt();
-  Serial.print(inpt);
-    
- }
   //1414
   left_dir    =inpt/1000;
   left_speed_inpt  =(inpt%1000)/100;
@@ -90,10 +95,10 @@ void loop() {
   
   motor_left->setSpeed(left_speed);
   motor_right->setSpeed(right_speed);
-  Serial.print("right_speed");
-  Serial.println(right_speed);
-  Serial.print("left_speed");
-  Serial.println(right_speed);
+  //Serial.print("right_speed");
+  //Serial.println(right_speed);
+  //Serial.print("left_speed");
+  //Serial.println(right_speed);
 
   //Run Motors
   //Left Motor
@@ -104,8 +109,9 @@ void loop() {
   } else if (left_dir == 1){
     motor_left->run(RELEASE);
   } else{
-    Serial.print("Fehlerhafte Eingabe für left dir: ");
-    Serial.println(left_dir);
+    motor_left->run(RELEASE);
+    //Serial.print("Fehlerhafte Eingabe für left dir: ");
+    //Serial.println(left_dir);
   }
   //Right Motor
   if (right_dir == 2){
@@ -115,36 +121,12 @@ void loop() {
   } else if (right_dir == 1){
     motor_right->run(RELEASE);
   } else{
-    Serial.print("Fehlerhafte Eingabe für right dir: ");
-    Serial.println(right_dir);
+    motor_right->run(RELEASE);
+    //Serial.print("Fehlerhafte Eingabe für right dir: ");
+    //Serial.println(right_dir);
   }
-
-
-
-  /*
-
-  if (inpt == 1){          //Check if the received character is 1
-    motor_left->run(FORWARD);
-  }
-  else if (inpt == 0){     ////Check if the received character is 0
-    motor_left->run(RELEASE);
-  }
-  else if (inpt >2){
-    motor_left->setSpeed(inpt);
-  }
- /*
- if (inpt < 10)
-  if (inpt == 2)          //Check if the received character is 1
-  digitalWrite(ledpin, HIGH);   //Make the GPIO High 
-  else if (inpt == 1)     ////Check if the received character is 0
-  digitalWrite(ledpin, LOW);    //Make the GPIO Low
-
-if (inpt >= 10)
-  left = inpt/10;
-  if (left == 2)          //Check if the received character is 1
-  digitalWrite(ledpin2, HIGH);   //Make the GPIO High 
-  else if (left == 1)     ////Check if the received character is 0
-  digitalWrite(ledpin2, LOW);    //Make the GPIO 
-*/
-  delay(3000);
+  
+  delay(1000);
+  motor_right->run(RELEASE);
+  motor_left->run(RELEASE);
 }

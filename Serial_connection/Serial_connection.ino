@@ -17,6 +17,7 @@ int ledpin2 = 12;   //Declaring the LED pin
 
 void setup() {
   Serial.begin(9600);           //Initializing the Serial Port to Baud rate 9600
+  Serial.setTimeout(1);
   pinMode(ledpin, OUTPUT);      //Defining the Led pin as output 
   pinMode(ledpin2, OUTPUT);      //Defining the Led pin as output 
   // put your setup code here, to run once:
